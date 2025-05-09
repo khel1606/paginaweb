@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <title>Ajuda amb el Chatbot</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .chatbox {
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      padding: 15px;
+      height: 400px;
+      overflow-y: auto;
+      margin-top: 20px;
+    }
+    .missatge {
+      margin-bottom: 10px;
+    }
+    .usuari {
+      text-align: right;
+      color: blue;
+    }
+    .bot {
+      text-align: left;
+      color: green;
+    }
+    .input-container {
+      display: flex;
+      margin-top: 10px;
+    }
+    .input-container input {
+      flex: 1;
+      padding: 8px;
+    }
+    .input-container button {
+      padding: 8px;
+      background-color: #007acc;
+      color: white;
+      border: none;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="links">
+      <a href="index.html">Inici</a>
+      <a href="forum.html">Fòrum</a>
+      <a href="incidencies.html">Incidències</a>
+      <a href="chatbot.html">Chatbot</a>
+    </div>
+    <a href="index.html"><img src="logo.png" alt="Logo Empresa"></a>
+  </nav>
+
+  <h1>Chatbot d’ajuda tècnica</h1>
+  <section>
+    <p>Escriu una pregunta sobre una incidència i el nostre assistent t’ajudarà.</p>
+
+    <div class="chatbox" id="chatbox"></div>
+
+    <div class="input-container">
+      <input type="text" id="input" placeholder="Escriu la teva pregunta..." />
+      <button onclick="enviar()">Enviar</button>
+    </div>
+  </section>
+
+  <script>
+    const chatbox = document.getElementById("chatbox");
+    const input = document.getElementById("input");
+
+    function afegeixMissatge(text, classe) {
+      const msg = document.createElement("div");
+      msg.className = "missatge " + classe;
+      msg.innerText = text;
+      chatbox.appendChild(msg);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function respostaBot(pregunta) {
+      pregunta = pregunta.toLowerCase();
+
+      if (pregunta.includes("internet")) {
+        return "Comprova el cable de xarxa o reinicia el router si no hi ha connexió.";
+      } else if (pregunta.includes("pantalla")) {
+        return "Comprova que el monitor estigui encès i ben connectat a l'ordinador.";
+      } else if (pregunta.includes("encén") || pregunta.includes("no encén") || pregunta.includes("no encen") || pregunta.includes("encen")) {
+        return "Assegura't que el cable estigui connectat i prova amb un altre endoll.";
+      } else if (pregunta.includes("teclat") || pregunta.includes("ratolí")) {
+        return "Desconnecta i torna a connectar, o prova un altre port USB.";
+      } else if (pregunta.includes("so") || pregunta.includes("àudio")) {
+        return "Comprova el volum i que els altaveus estiguin connectats correctament.";
+      } else {
+        return "No estic segur de com ajudar-te amb això. Intenta fer servir paraules com 'internet', 'pantalla', 'so'...";
+      }
+    }
+
+    function enviar() {
+      const text = input.value.trim();
+      if (text === "") return;
+
+      afegeixMissatge(text, "usuari");
+      const resposta = respostaBot(text);
+      setTimeout(() => afegeixMissatge(resposta, "bot"), 500);
+
+      input.value = "";
+    }
+  </script>
+</body>
+</html>

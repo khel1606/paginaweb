@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <title>Fòrum</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <div class="links">
+            <a href="index.html">Inici</a>
+            <a href="forum.html">Fòrum</a>
+            <a href="incidencies.html">Incidències</a>
+            <a href="chatbot.html">Chatbot</a>
+        </div>
+        <a href="index.html"><img src="Logo.png" alt="Logo Empresa"></a>
+    </nav>
+
+    <h1>Fòrum de dubtes</h1>
+    <section>
+        <p><em>Els comentaris no es guarden permanentment (només mentre la pàgina està oberta).</em></p>
+
+        <form id="form">
+            <label>Nom:</label><br>
+            <input type="text" id="nom" required><br><br>
+
+            <label>Missatge:</label><br>
+            <textarea id="missatge" rows="4" required></textarea><br><br>
+
+            <button type="submit">Enviar</button>
+        </form>
+
+        <div id="llista-comentaris">
+            <!-- Comentaris apareixen aquí -->
+        </div>
+    </section>
+
+    <script>
+        const form = document.getElementById('form');
+        const llista = document.getElementById('llista-comentaris');
+
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const nom = document.getElementById('nom').value.trim();
+            const missatge = document.getElementById('missatge').value.trim();
+
+            if (nom && missatge) {
+                const div = document.createElement('div');
+                div.className = 'comentari';
+                div.innerHTML = `<strong>${nom}</strong><p>${missatge}</p>`;
+                llista.prepend(div);
+                form.reset();
+            }
+        });
+    </script>
+</body>
+</html>
